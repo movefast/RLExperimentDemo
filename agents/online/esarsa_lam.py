@@ -1,11 +1,11 @@
 import torch as T
 from agents.planning.base_agent import BaseAgent
 from common.rep_utils import (LossFuncFactory, RepresentationFactory,
-                                       net_factory, replay_factory)
+                              net_factory, replay_factory)
 from config import device
 
 
-class EsarsaLambdaAgent(BaseAgent):
+class EsarsaLambdaAgent():
     def agent_init(self, agent_init_info):
         # Store the parameters provided in agent_init_info.
         allowed_attrs = {
