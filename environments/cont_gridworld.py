@@ -62,11 +62,7 @@ class ContinuousGridWorld:
         return new_x, new_y
 
     def generate_obs(self):
-        # coord = np.array([self.x, self.y])
-        # # state_feature = torch.tensor(coord)
-        # # return state_feature[None, ...].float().to(device)
-        # return coord[None, ...]
-        return  np.array([self.x, self.y])
+        return np.array([self.x, self.y])
 
     def reset(self):
         self.x = 0.0 * self.edge_scale + self.eps

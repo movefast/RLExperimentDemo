@@ -70,8 +70,8 @@ class PuddleWorld:
 
         self.sigma = 0.01
 
-        self.goal_xcoord = self.pworld_max_x - self.goal_dimension #1000#
-        self.goal_ycoord = self.pworld_max_y - self.goal_dimension #1000#
+        self.goal_xcoord = self.pworld_max_x - self.goal_dimension
+        self.goal_ycoord = self.pworld_max_y - self.goal_dimension
         self.normalized = normalized
         self.rand_generator = np.random.RandomState(seed)
 
