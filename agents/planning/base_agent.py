@@ -2,7 +2,7 @@ import numpy as np
 import torch as T
 from agents.agent import AbstractBaseAgent
 from common.agent_helpers import (LossFuncFactory, RepresentationFactory,
-                                       net_factory, replay_factory)
+                                  net_factory, replay_factory)
 from common.replay.replay_buffer import Transition
 from config import device
 
@@ -84,7 +84,6 @@ class BaseAgent(AbstractBaseAgent):
 
     def _get_action(self, state):
         with T.no_grad():
-            # current_q = self.nn(state)
             current_q = self.nn(self.rep_func(state).to(device))
         current_q.squeeze_()
         if np.random.rand() < self.epsilon:

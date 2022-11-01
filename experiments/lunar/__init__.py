@@ -6,12 +6,6 @@ from agents.planning.per_agent import PERAgent
 from agents.planning.qr_agent import QRAgent
 from common.agent_helpers import PriorityTYPE
 
-# from gym.envs.registration import register
-# register(
-#     id='PuddleWorld-v0',
-#     entry_point='environments.puddle_world:PuddleEnv',
-# )
-
 AGENT_REG = {
     "QLearning": QLearningAgent,
     "PER": PERAgent,

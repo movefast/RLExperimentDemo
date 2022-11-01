@@ -10,28 +10,8 @@ class ForwardAgent(QLearningAgent):
     def agent_init(self, agent_init_info):
         # Store the parameters provided in agent_init_info.
         allowed_attrs = {
-            # generic
-            'num_actions',
-            'num_states',
-            'epsilon',
-            'step_size',
-            'discount',
-            'batch_size',
-            'seq_len',
-            'update_interval',
-            'bias',
-            'net_type', 'opt', 'loss_func',
-            ## buffer
-            'buffer_size',
-            ## forward specific
+            # forward specific
             'replay_across_iter',
-
-            # representation
-            'rep_type',
-            'rep_param',
-
-            'total_planning',
-            'beta'
         }
         self.__dict__.update((k, v) for k, v in agent_init_info.items() if k in allowed_attrs)
 
@@ -54,30 +34,8 @@ class ForwardAgent(QLearningAgent):
 class BackwardAgent(QLearningAgent):
 
     def agent_init(self, agent_init_info):
-        # Store the parameters provided in agent_init_info.
         allowed_attrs = {
-            # generic
-            'num_actions',
-            'num_states',
-            'epsilon',
-            'step_size',
-            'discount',
-            'batch_size',
-            'seq_len',
-            'update_interval',
-            'bias',
-            'net_type', 'opt', 'loss_func',
-            ## buffer
-            'buffer_size',
-            ## forward specific
             'replay_across_iter',
-
-            # representation
-            'rep_type',
-            'rep_param',
-
-            'total_planning',
-            'beta'
         }
         self.__dict__.update((k, v) for k, v in agent_init_info.items() if k in allowed_attrs)
 

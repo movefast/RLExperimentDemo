@@ -2,8 +2,7 @@ import numpy as np
 import torch as T
 import torch.nn.functional as F
 from agents.planning.base_agent import BaseAgent
-from common.agent_helpers import (LossFuncFactory, PriorityTYPE,
-                                       replay_factory)
+from common.agent_helpers import LossFuncFactory, PriorityTYPE, replay_factory
 from common.replay.replay_buffer import Transition
 from config import device
 from opacus.grad_sample import GradSampleModule
@@ -41,13 +40,11 @@ class PERAgent(BaseAgent):
         self.prev_action_value = q[action]
 
     def agent_start(self, state):
-        # Choose action using epsilon greedy.
         action, current_q = self._get_action(state)
         self._cache(state, action, current_q)
         return action
 
     def agent_step(self, reward, state):
-        # Choose action using epsilon greedy.
         action, current_q = self._get_action(state)
         grad_norm = self.train_online(self.prev_state, self.prev_action, state, reward, self.discount)
         if self.ptype == PriorityTYPE.PER:
@@ -123,7 +120,6 @@ class PERAgent(BaseAgent):
             temp = self.criterion(q_learning_action_values.view(-1), target)
             loss = temp @ is_weight
 
-        # TODO: to be removed if beta is no longer used
         if planning:
             loss = loss * (self.total_planning**(-1*self.beta))
 

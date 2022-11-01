@@ -16,7 +16,6 @@ AGENT_REG = {
 
 @dataclass
 class DefaultConfig:
-    # default for tc
     init: float = 0
     step_size: float = 0.00125
     batch_size: int = 1

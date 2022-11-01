@@ -3,7 +3,7 @@ import torch as T
 import torch.nn as nn
 from agents.planning.base_agent import BaseAgent
 from common.agent_helpers import (LossFuncFactory, RepresentationFactory,
-                              net_factory, replay_factory)
+                                  net_factory, replay_factory)
 from common.replay.replay_buffer import Transition
 from config import device
 
@@ -15,7 +15,6 @@ class QRAgent(BaseAgent):
             'num_quant',
         }
         self.__dict__.update((k, v) for k, v in agent_init_info.items() if k in allowed_attrs)
-        # TODO: changed agent_init to __init__ with kwarg
         super().agent_init(agent_init_info)
         self.criterion = LossFuncFactory.get_loss_func(self.loss_func, True)
         self.tau = T.Tensor((2 * np.arange(self.num_quant) + 1) / (2.0 * self.num_quant)).view(1, -1)

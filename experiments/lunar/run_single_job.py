@@ -1,20 +1,11 @@
 import os
 import pathlib
-import random
-import time
-from dataclasses import asdict
 from functools import partial
 
-import config
 import fire
 import gym
-import matplotlib.pyplot as plt
-import numpy as np
-import torch as T
 import yaml
 from common.train_helpers import run
-from environments.cont_gridworld import ContinuousGridWorld
-from fastprogress.fastprogress import master_bar, progress_bar
 
 from . import AGENT_DEFAULT_PARAMS, AGENT_REG
 

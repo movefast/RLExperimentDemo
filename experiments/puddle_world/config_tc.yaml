@@ -1,5 +1,4 @@
 experiment:
-  name: cont_gridworld
   num_runs: 10
   num_episodes: 50
   timeout: 1000

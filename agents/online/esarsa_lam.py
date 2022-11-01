@@ -1,11 +1,12 @@
 import torch as T
+from agents.agent import AbstractBaseAgent
 from agents.planning.base_agent import BaseAgent
 from common.agent_helpers import (LossFuncFactory, RepresentationFactory,
-                              net_factory, replay_factory)
+                                  net_factory, replay_factory)
 from config import device
 
 
-class EsarsaLambdaAgent():
+class EsarsaLambdaAgent(AbstractBaseAgent):
     def agent_init(self, agent_init_info):
         # Store the parameters provided in agent_init_info.
         allowed_attrs = {
@@ -63,10 +64,6 @@ class EsarsaLambdaAgent():
             self.nn_tar_update_freq = update_freq
             self.use_target = True
 
-        # 1) tabular
-        # self.sampled_state = np.zeros(self.num_states)
-        # 2) cont 1 x 1 grid
-        # self.sampled_state = T.zeros(20,20)
         self.updates = 0
         self.steps = 0
 
@@ -116,7 +113,6 @@ class EsarsaLambdaAgent():
             else:
                 new_q = self.nn(new_state_batch)
             expected_q = self._get_pi(new_q.squeeze()).dot(new_q.squeeze())
-            # max_q = new_q.max(1)[0]
             target = reward_batch
             target += discount_batch * expected_q
             td_error = target - q_learning_action_values

@@ -1,7 +1,7 @@
 experiment:
   num_runs: 30
   num_episodes: 50
-  timeout: 30000 # inf
+  timeout: 30000
   num_steps: 30000
   log_window: 100
   fill_buffer: False

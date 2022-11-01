@@ -35,12 +35,10 @@ class SimpleNN(nn.Module):
     def __init__(self, input_size, output_size, bias):
         super(SimpleNN, self).__init__()
         self.nlin = nn.ReLU()
-        # 2-layer nn
         self.i2h = nn.Linear(input_size, input_size//2, bias=bias)
         self.h2o = nn.Linear(input_size//2, output_size, bias=bias)
 
     def forward(self, x):
-        # 2-layer nn
         x = self.i2h(x)
         x = self.nlin(x)
         x = self.h2o(x)

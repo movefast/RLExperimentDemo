@@ -12,9 +12,6 @@ env:
   num_states: 8
   num_actions: 4
   gamma: 0.99
-  # not used
-  # noise: 0.005
-  # thrust: 0.05
 
 agent:
   exp_decay_explor: True

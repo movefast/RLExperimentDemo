@@ -4,9 +4,7 @@ from dataclasses import asdict
 
 import numpy as np
 import torch as T
-from environments.puddle_world import PuddleWorld
-from fastprogress.fastprogress import master_bar, progress_bar
-from tqdm import tqdm
+from fastprogress.fastprogress import progress_bar
 
 from common.logger import MetricLogger
 
@@ -137,7 +135,6 @@ def run(CONFIG, env, agent_type, hyper_params, run_num=None, save_model=False, v
                 metric_logger.add_scalar('log_returns', total_return)
                 if verbose:
                     print(f"Step {total_step_count}, Episode {total_ep_count}, Episodic Return {ep_return:.4f}, Total Return {total_return:.4f}")
-            # print(f"agent planned for {agent.temp} steps")
         metric_logger.dump()
         if save_model:
             (dest_dir/"models").mkdir(parents=True, exist_ok=True)
@@ -146,7 +143,6 @@ def run(CONFIG, env, agent_type, hyper_params, run_num=None, save_model=False, v
     end = time.time()
 
     print("total run time: ", end - start)
-    # env.close()
 
     return experiment_name, np.mean(metric_logger.metrics["episodic_returns"][experiment_name]), \
         hyper_params, len(metric_logger.metrics["episodic_returns"][experiment_name][0])
