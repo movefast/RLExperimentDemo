@@ -3,7 +3,7 @@ from enum import IntEnum
 import numpy as np
 import torch.nn as nn
 
-from common.nets import FCNN, LinearNN, SimpleNN
+from common.nets import FCNN, ConvNetwork, LinearNN, SimpleNN
 from common.replay.prioritized_replay_buffer import Memory as PER
 from common.replay.replay_buffer import Memory as Replay
 
@@ -167,6 +167,8 @@ class NetworkFactory:
             return FCNN(input_size, output_size, hidden_sizes[net_type], nn.ReLU, bias)
         elif net_type == "linear":
             return LinearNN(input_size, output_size, **kwds)
+        elif net_type == "conv":
+            return ConvNetwork(input_size, output_size, kwds['net_cfg'], device)
         else:
             raise NotImplementedError
 
