@@ -1,0 +1,27 @@
+experiment:
+  num_runs: 30
+  num_episodes: 300
+  timeout: 1000
+  episodic_exp: True
+  num_steps: 30000
+  log_window: 100
+  fill_buffer: False
+
+env:
+  name: LunarLander
+  num_states: 8
+  num_actions: 4
+  gamma: 0.99
+  # not used
+  # noise: 0.005
+  # thrust: 0.05
+
+agent:
+  exp_decay_explor: True
+  exp_decay_rate: 0.9995
+  update_interval: 1
+  seq_len: None
+  rep_type: null
+  rep_param:
+    [32, 1, 20, [-1, -1, -1, -1, -1, -1, -1, -1], [1, 1, 1, 1, 1, 1, 1, 1]]
+  net_type: "med"

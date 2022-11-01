@@ -1,0 +1,23 @@
+experiment:
+  name: cont_gridworld
+  num_runs: 10
+  num_episodes: 50
+  timeout: 1000
+  episodic_exp: False
+  num_steps: 15000
+  log_window: 100
+  fill_buffer: False
+
+env:
+  name: "PuddleWorld"
+  num_states: 2
+  num_actions: 4
+  gamma: 1
+
+agent:
+  exp_decay_explor: False
+  update_interval: 1
+  seq_len: None
+  rep_type: TC
+  rep_param: [1024, 16, 4, [0, 0], [1, 1], True, True]
+  net_type: "linear"

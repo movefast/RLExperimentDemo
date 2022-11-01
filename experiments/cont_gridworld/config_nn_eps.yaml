@@ -1,0 +1,25 @@
+experiment:
+  num_runs: 30
+  num_episodes: 50
+  timeout: 30000 # inf
+  num_steps: 30000
+  log_window: 100
+  fill_buffer: False
+
+env:
+  name: ContGridworld
+  num_states: 2
+  num_actions: 4
+  gamma: 0.975
+  s_noise: 0.01
+  edge_scale: 1
+  step_len: 0.05
+
+agent:
+  exp_decay_explor: True
+  exp_decay_rate: 0.9995
+  update_interval: 1
+  seq_len: None
+  rep_type: TC
+  rep_param: [32, 1, 20, [0, 0], [1, 1]]
+  net_type: "tiny"
