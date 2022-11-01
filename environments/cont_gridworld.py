@@ -1,8 +1,6 @@
 import os
 import sys
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
 import numpy as np
 import torch
 from config import device
@@ -127,6 +125,7 @@ class ContinuousGridWorld:
 
 
 if __name__ == '__main__':
+    sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     import matplotlib.pyplot as plt
 
     env = ContinuousGridWorld(env_info={"s_noise":0.001, "edge_scale": 1, "step_len": 0.05})
