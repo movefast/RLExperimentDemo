@@ -56,14 +56,12 @@ class Memory(object):
         return len(self.memory)
 
     def add(self, *args):
-        """Saves a transition."""
         if len(self.memory) == self.capacity:
             self.memory.popleft()
         self.memory.append(Transition(*args))
         self.last_sampled_idxs = [i - 1 for i in self.last_sampled_idxs]
 
     def append_state(self, state):
-        """Saves a transition."""
         if len(self.memory) == self.capacity:
             self.memory.popleft()
         self.memory.append(state)

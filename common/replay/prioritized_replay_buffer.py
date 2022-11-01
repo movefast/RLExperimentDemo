@@ -7,7 +7,7 @@ from config import device
 
 epsilon = sys.float_info.epsilon
 
-class Memory:  # stored as ( s, a, r, s_ ) in SumTree
+class Memory:
 
     def __init__(self, capacity, prioritized, **kwargs):
         self.tree = SumTree(capacity)
@@ -21,9 +21,6 @@ class Memory:  # stored as ( s, a, r, s_ ) in SumTree
             self.a = kwargs['alpha']
         self.data = np.zeros(capacity, dtype=object)
         self.ptr = 0
-        # 1)
-        # self.max_priority = self._get_priority(0)
-        # 2)
         self.max_priority = 1
 
         self.last_sampled_idxs = []
@@ -39,12 +36,6 @@ class Memory:  # stored as ( s, a, r, s_ ) in SumTree
 
     def __len__(self):
         return self.num_ele
-
-    # def add(self, *args):
-    #     self.data[self.ptr] = Transition(*args)
-    #     self.tree.set(self.ptr, self.max_priority)
-    #     self.ptr = (self.ptr + 1) % self.capacity
-    #     self.num_ele = min(self.num_ele + 1, self.capacity)
 
     def add(self, error, *args):
         self.data[self.ptr] = Transition(*args)
@@ -76,16 +67,13 @@ class Memory:  # stored as ( s, a, r, s_ ) in SumTree
             sampled_idxs = list(self.tree.sample(n))
         else:
             sampled_idxs = np.random.randint(0, self.num_ele, size=n)
-        # catch a nasty numeric error when priorities are too small (in this case due to lambda = 1 and traj too long)
         sampled_idxs = [idx for idx in sampled_idxs if idx != len(self.tree.nodes[-1])-1]
 
         if self.prioritized:
             weights = (np.array(self.tree.nodes[-1][sampled_idxs]) + epsilon) ** -self.beta
             weights /= weights.max() + epsilon
-            # weights = np.clip(weights, a_min=0, a_max=1)
         else:
             weights = np.ones(len(sampled_idxs))
-        # TODO: adjust beta increment
         if self.beta_increment_per_sampling:
             self.beta = min(self.beta + self.beta_increment_per_sampling, 1) # Hardcoded: 0.4 + 2e-7 * 3e6 = 1.0. Only used by PE
         return (self.data[sampled_idxs], sampled_idxs, T.FloatTensor(weights).to(device).reshape(-1, 1))
