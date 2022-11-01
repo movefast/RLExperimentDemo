@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import torch as T
 import yaml
-from common.train_utils import run
+from common.train_helpers import run
 from environments.puddle_world import PuddleWorld
 from fastprogress.fastprogress import master_bar, progress_bar
 

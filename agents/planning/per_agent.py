@@ -2,7 +2,7 @@ import numpy as np
 import torch as T
 import torch.nn.functional as F
 from agents.planning.base_agent import BaseAgent
-from common.rep_utils import (LossFuncFactory, PriorityTYPE,
+from common.agent_helpers import (LossFuncFactory, PriorityTYPE,
                                        replay_factory)
 from common.replay.replay_buffer import Transition
 from config import device

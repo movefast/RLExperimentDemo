@@ -4,7 +4,7 @@ from agents.planning.base_agent import QLearningAgent
 from agents.planning.forward_agent import BackwardAgent, ForwardAgent
 from agents.planning.per_agent import PERAgent
 from agents.planning.qr_agent import QRAgent
-from common.rep_utils import PriorityTYPE
+from common.agent_helpers import PriorityTYPE
 
 # from gym.envs.registration import register
 # register(

@@ -24,7 +24,7 @@ params_pw_tc_search_1031 = {
         "step_size": get_lr(n=4, a=2, start=1),
         'seq_len': [5],
         'ptype': [1],
-        'per_alpha': [1, 0.5, 0.4],
+        'per_alpha': [0.6, 0.4, 0.2],
         'importance_sampling': [True],
         'opt': ['sgd'],
         'init': [0],

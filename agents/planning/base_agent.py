@@ -1,7 +1,7 @@
 import numpy as np
 import torch as T
 from agents.agent import AbstractBaseAgent
-from common.rep_utils import (LossFuncFactory, RepresentationFactory,
+from common.agent_helpers import (LossFuncFactory, RepresentationFactory,
                                        net_factory, replay_factory)
 from common.replay.replay_buffer import Transition
 from config import device

@@ -1,6 +1,6 @@
 import torch as T
 from agents.planning.base_agent import BaseAgent
-from common.rep_utils import (LossFuncFactory, RepresentationFactory,
+from common.agent_helpers import (LossFuncFactory, RepresentationFactory,
                               net_factory, replay_factory)
 from config import device
 
