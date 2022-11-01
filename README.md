@@ -62,7 +62,7 @@
 
 ## About The Project
 
-This is a demo project for running RL experiments. In order to showcase related system design concepts and coding styles I chose to not use an existing experiment framework. It includes three main components: agents, environments, and experiments. It also includes a set of helper functions and batch jobs used to configure and run the experiments. The agents directory contains an abstract class `agent.py` that defines the common interface of a typical agent class. The available online and planning agent classes are located in its respective subfolders. New experiments should be added to the experiments directory.
+This is a demo project for running RL experiments. In order to showcase related system design concepts and coding styles I chose to not use an existing experiment framework. The repo includes three main components: agents, environments, and experiments. It also includes a set of helper functions and batch jobs used to configure and run the experiments. The agents directory contains an abstract class `agent.py` that defines the common interface of a typical agent class. The available online and planning agent classes are located in its respective subfolders. New experiments should be added to the experiments directory.
 
 Every individual experiment subfolder is self-contained including its related configuration and run scripts. Changes to one experiment setup does not affect a different experiment. `run_single_job.py` is the main script that runs an experiment and saves results in a subfolder `\metrics`.
 
@@ -115,8 +115,14 @@ This is an example of how to list things you need to use the software and how to
    ```
 
 3. Write batch jobs to be run on a remote job server
+
    ```sh
-   python -m experiments.cont_gridworld.write_batch_jobs --append False --config_fname config_nn_eps.yaml --param_dname params_cont_gw_jumpy_replay_nn_0403 --start_run=29
+   python -m experiments.puddle_world.write_batch_jobs --append False --config_fname config_nn_eps.yaml --param_dname params_pw_tc_1031 --start_run=5
+   ```
+
+4. Merge individual run results of an experiment into a single artifact
+   ```sh
+   python -m combine_results_mt puddle_world my_artifact_name
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
