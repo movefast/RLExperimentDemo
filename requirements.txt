@@ -1,0 +1,11 @@
+# run pip3 install -r requirements.txt
+fastprogress==0.2.2
+matplotlib==3.2.1
+gym==0.10.5
+joblib==1.0.0
+fire==0.3.1
+tqdm==4.55.0
+numpy==1.19.2
+PyYAML==5.4.1
+# lunar lander
+box2d-py
