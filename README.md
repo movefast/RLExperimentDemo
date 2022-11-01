@@ -62,7 +62,7 @@
 
 ## About The Project
 
-This is a demo project for running RL experiments. The repo includes three main components: agents, environments, and experiments. In order to showcase my coding style and system design choices I chose to build each component in their simple form without the help from an existing framework or library whenever possible. This repo also includes a set of helper functions and batch jobs used to configure and run the experiments.
+This is a demo project for running RL experiments. The repo includes three main components: agents, environments, and experiments. In order to demonstrate my coding style and system design choices, I chose to build each component from scratch without the help from an existing framework or library whenever possible. This repo also includes a set of helper functions and batch jobs used to configure and run the experiments.
 
 The agents directory contains an abstract class `agent.py` that defines the common interface of a typical agent class. The available online and planning agent classes are located in its respective subfolders. New experiments should be added to the experiments directory. Every individual experiment subfolder is self-contained including its related configuration and run scripts. Changes to one experiment setup does not affect a different experiment. `run_single_job.py` is the main script that runs an experiment and saves results in a subfolder `\metrics`. An example notebook can be found in `\nbs` that shows how we may evaluate such a result.
 
