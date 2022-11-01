@@ -1,7 +1,6 @@
-import math
-
 import torch as T
 import torch.nn as nn
+import torch.nn.functional as functional
 
 
 def lin_block(input_size, output_size, actn, bias, dropout=False):
@@ -51,18 +50,66 @@ class LinearNN(nn.Module):
     def __init__(self, input_size, output_size, init=None):
         super(LinearNN, self).__init__()
         self.i2o = nn.Linear(input_size, output_size, bias=False)
-        # nn.init.constant_(self.i2o.weight, 1.0/input_size)
-        # nn.init.normal_(self.i2o.weight, 0, 1/math.sqrt(input_size))
-        # nn.init.normal_(self.i2o.weight, 0, math.sqrt(2/(input_size + output_size)))
-        # nn.init.xavier_normal_(self.i2o.weight)
-        # nn.init.xavier_uniform_(self.i2o.weight)
         if init is not None:
             nn.init.constant_(self.i2o.weight, init)
         else:
             nn.init.xavier_uniform_(self.i2o.weight)
-        # nn.init.constant_(self.i2o.weight, 1.0/16)
-        # nn.init.constant_(self.i2o.weight, 0)
 
     def forward(self, x):
         x = self.i2o(x)
         return x
+
+class ConvNetwork(nn.Module):
+    def __init__(self, state_dim, output_units, architecture, device):
+        super().__init__()
+
+        self.conv_body = ConvBody(device, state_dim, architecture)
+        self.fc_head = self.layer_init_xavier(nn.Linear(self.conv_body.feature_dim, output_units))
+
+        self.to(device)
+        self.device = device
+
+    def layer_init_xavier(self, layer):
+        nn.init.xavier_uniform_(layer.weight)
+        nn.init.constant_(layer.bias.data, 0)
+        return layer
+
+    def forward(self, x):
+        phi = self.conv_body(x)
+        phi = self.fc_head(phi)
+        return phi
+
+class ConvBody(nn.Module):
+    def __init__(self, device, state_dim, architecture):
+        super().__init__()
+
+        def size(size, kernel_size=3, stride=1, padding=0):
+            return (size + 2 * padding - (kernel_size - 1) - 1) // stride + 1
+
+        spatial_length, _, in_channels = state_dim
+        num_units = None
+        layers = nn.ModuleList()
+        for layer_cfg in architecture['conv_layers']:
+            layers.append(nn.Conv2d(layer_cfg["in"], layer_cfg["out"], layer_cfg["kernel"],
+                                         layer_cfg["stride"], layer_cfg["pad"]))
+            if not num_units:
+                num_units = size(spatial_length, layer_cfg["kernel"], layer_cfg["stride"], layer_cfg["pad"])
+            else:
+                num_units = size(num_units, layer_cfg["kernel"], layer_cfg["stride"], layer_cfg["pad"])
+        num_units = num_units ** 2 * architecture["conv_layers"][-1]["out"]
+
+        self.feature_dim = num_units
+        self.spatial_length = spatial_length
+        self.in_channels = in_channels
+        self.layers = layers
+        self.to(device)
+        self.device = device
+
+    def forward(self, x):
+        x = functional.relu(self.layers[0](self.shape_image(x)))
+        for layer in self.layers[1:]:
+            x = functional.relu(layer(x))
+        return x.reshape(x.size(0), -1)
+
+    def shape_image(self, x):
+        return x.reshape(-1, self.spatial_length, self.spatial_length, self.in_channels).permute(0, 3, 1, 2)
